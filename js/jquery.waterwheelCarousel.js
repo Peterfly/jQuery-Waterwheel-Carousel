@@ -475,13 +475,7 @@
       }
     }
 
-    /**
-     * The event handler when an image within the carousel is clicked
-     * This function will rotate the carousel the correct number of rotations
-     * to get the clicked item to the center, or will fire the custom event
-     * the user passed in if the center item is clicked
-     */
-    $(this).find('img').bind("click", function () {
+    function rotate() {
       var itemPosition = $(this).data().currentPosition;
 
       if (options.imageNav == false) {
@@ -517,8 +511,15 @@
           rotateCarousel(rotations);
         }
       }
-    });
+    }
 
+    /**
+     * The event handler when an image within the carousel is clicked
+     * This function will rotate the carousel the correct number of rotations
+     * to get the clicked item to the center, or will fire the custom event
+     * the user passed in if the center item is clicked
+     */
+    $(this).find('img').bind("click", rotate);
 
     /**
      * The user may choose to wrap the images is link tags. If they do this, we need to
@@ -612,6 +613,7 @@
 
       initializeCarouselData();
       data.itemsContainer.find('img').hide();
+      $(this).find('img').bind("click", rotate);
       forceImageDimensionsIfEnabled();
 
       preload(function () {
